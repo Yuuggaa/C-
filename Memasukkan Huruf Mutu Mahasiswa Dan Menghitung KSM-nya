@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+struct mhs{
+	string nama,mutu, matkul, nim, nims;
+	int sks;
+	float KSM;
+};
+
+int main(){
+	int n;
+	cout << "==============================================================" << endl;
+	cout << "Masukkan Banyak Mahasiswa : "; cin >> n;
+	mhs x[n];
+	for (int i = 0; i < n; i++){
+		cout << "Data Mahasiswa " << i+1 << endl;
+		cout << "Masukkan NIM : "; cin >> x[i].nim;
+		cin.ignore();
+		cout << "Masukkan Nama : "; getline(cin,x[i].nama);
+		cout << "Masukkan Mata kuliah : "; getline(cin,x[i].matkul);
+		cout << "Masukkan Banyaknya SKS : "; cin >> x[i].sks;
+		cout << "Masukkan Huruf Mutu : "; cin >> x[i].mutu;
+		cout << "==============================================================" << endl;
+		if(x[i].mutu == "A" || x[i].mutu == "a"){
+			x[i].KSM = 4 * x[i].sks;
+		} else if(x[i].mutu == "AB" || x[i].mutu == "ab" ){
+			x[i].KSM = 3.5 * x[i].sks;
+		} else if(x[i].mutu == "B" || x[i].mutu == "b" ){
+			x[i].KSM = 3 * x[i].sks;
+		} else if(x[i].mutu == "BC" || x[i].mutu == "bc" ){
+			x[i].KSM = 2.5 * x[i].sks;
+		} else if(x[i].mutu == "C" || x[i].mutu == "c" ){
+			x[i].KSM = 2 * x[i].sks;
+		} else if(x[i].mutu == "D" || x[i].mutu == "d" ){
+			x[i].KSM = 1 * x[i].sks;
+		} else if(x[i].mutu == "E" || x[i].mutu == "e" ){
+			x[i].KSM = 0 * x[i].sks;
+		} 
+		cout << endl;
+	}
+	for (int i = 0; i < n; i++){
+		cout << "Mahasiswa " << i+1 << endl;
+		cout << "NIM : "; cout << x[i].nim << endl;
+		cout << "Nama : "; cout << x[i].nama << endl;
+		cout << "Mata kuliah : "; cout << x[i].matkul << endl;
+		cout << "Banyaknya SKS : "; cout << x[i].sks << endl;
+		cout << "Huruf Mutu : "; cout << x[i].mutu << endl;
+		cout << "Nilai KSM : "; cout << x[i].KSM << endl;
+		cout << "==============================================================" << endl;
+		cout << endl;
+	}
+	char o;
+	do{
+		int z = 0;
+		cout << "Silahkan Masukkan NIM Yang Akan Dicari : "; cin >> x[0].nims;
+		cout << endl;
+		for(int i=0 ; i<n ; i++){
+			if(x[0].nims == x[i].nim){
+				cout << "NIM ditemuakan atas nama : " << x[i].nama << " dengan nilai KSM : " << x[i].KSM << endl;
+			} else {
+				z++;
+			}
+			if(z==n){
+				cout << "NIM Tidak Ditemukan !! " << endl;
+			}
+		}
+		cout << "==============================================================" << endl;
+		cout << "Apakah Anda Ingin Mencari Lagi ?? (y/n) : "; cin >> o;
+		cout << "==============================================================" << endl;
+	} while(o == 'y' || o == 'Y');
+	cout << "Terima Kasih !!" << endl;
+	cout << "==============================================================" << endl;
+	return 0;
+}
