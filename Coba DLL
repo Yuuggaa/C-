@@ -1,0 +1,92 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef string etype;
+typedef struct Node* address;
+typedef struct Node {                  //kotak buat nyimpen data
+    etype info;
+    etype nomor;
+    address prev;
+    address next;
+} node;
+
+typedef struct List{                  //jadi pointernya data yang ada di dalam kotak
+    address head;
+    address tail;
+} list;
+
+void createEmty(List* L){             //buat pointer kosong dalem kotak
+    (*L).head = NULL;
+    (*L).tail = NULL;
+}
+
+bool emtyTrue(List* L){               //ngecek kotaknya kosong nggak
+    return (((*L).head == NULL) && (*L).tail == NULL);
+}
+
+address cinData(etype x, etype y){    //masukin Data
+    address newNode = new node;
+    newNode -> info = x;        
+    newNode -> nomor = y;
+    newNode -> next = NULL;
+    newNode -> prev = NULL;
+    return newNode;
+}
+
+void inList(List* L, etype x, etype y){ //Masukin data dari atas ke bawah
+    address newLine = cinData(x, y);
+    if(emtyTrue(L)){
+        L->head = newLine;
+        L->tail = newLine;
+    } else{
+        newLine->prev = L ->tail;
+        L->tail->next = newLine;
+        L->tail = newLine;
+    }
+}
+
+void printData(List* L){               //nampilin data
+    if (emtyTrue(L)){
+        cout << "Kosong Pak :D" << endl;
+    } else {
+        address temp = L -> head;
+        while(temp != NULL){
+            if(temp -> next == NULL){
+                cout << temp->info << " "<<temp->nomor << endl;
+            } else {
+                cout << temp -> info <<" "<<temp -> nomor<<endl;
+            }
+            temp = temp -> next;
+        }
+    }
+}
+
+
+int main(){
+    List L;                     //manggil pointer si listnya
+    createEmty(&L);             //buat list kosongnya
+    printData(&L);              //cek kalo datanya kosong
+    cout << "Berikut Program Penyimpanan Data Mahasiswa" << endl;
+    string nama, nim;char data;bool x = 0;
+    do{
+        cout << "== Menu Utama ==" << endl;
+        cout << "1. Input Data Mahasiswa" << endl;
+        cout << "2. Menampilkan Data Inputan" << endl;
+        cout << "3. Menghapus Data Inputan(not Available now)" << endl;
+        cout << "4. Selesai :D" << endl;
+        cout << "============================================" <<endl;
+        cout << "Open Menu : "; cin >> data;
+        cin.ignore();
+        switch(data){
+            case '1' :  cout << "Masukkan Nama  : ";getline(cin,nama);
+                        cout << "NIM            : ";cin >> nim;
+                        cout << "============================================" <<endl;
+                        inList(&L,nama,nim);break;
+            case '2' :  printData(&L);break;
+            case '3' :  cout << "not Availabel!!!";break;
+            case '4' :  x=1;break;
+            default  :  cout << "Try Again";break;
+        }
+    }while(!x);
+    return 0;
+}
